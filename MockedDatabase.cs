@@ -4,7 +4,7 @@ namespace AssignmentForKYC360
 {
     public class MockedDatabase
     {
-        private List<Entity> entities;
+        private List<Entity> entities { get; set; }
 
         public MockedDatabase()
         {
@@ -61,6 +61,11 @@ namespace AssignmentForKYC360
             return entities;
         }
 
+        public void AddEntity(Entity entity)
+        { 
+            entities.Add(entity);
+        
+        }
         public Entity GetEntityById(string id)
         {
             return entities.Find(e => e.Id == id);

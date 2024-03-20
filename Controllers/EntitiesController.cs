@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AssignmentForKYC360.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AssignmentForKYC360.Controllers
 {
@@ -8,13 +9,16 @@ namespace AssignmentForKYC360.Controllers
     {
         private readonly MockedDatabase _db = db;
 
-        [HttpGet]
+        //Endpoint TO get ALL Entities
+        [HttpGet("getAll")]
         public IActionResult GetAllEntities()
         {
             var entities = _db.GetAllEntities();
             return Ok(entities);
         }
 
+
+        //Endpoint TO get Entity by ID
         [HttpGet("{id}")]
         public IActionResult GetEntityById(string id)
         {
@@ -25,6 +29,21 @@ namespace AssignmentForKYC360.Controllers
             }
             return Ok(entity);
         }
+
+        //Endpoint TO create new Entity
+
+        [HttpPost("create")]
+        public IActionResult CreateEntity([FromBody] Entity et)
+        {
+
+
+            _db.AddEntity(et);
+
+            return Ok(GetEntityById(et.Id));
+        }
+
+
+         //Endpoint TO search  Entities by address or Name
 
         [HttpGet("search")]
         public IActionResult SearchEntities([FromQuery] string searchTerm)
@@ -38,6 +57,8 @@ namespace AssignmentForKYC360.Controllers
             return Ok(filteredEntities);
         }
 
+
+        //Endpoint TO filter  Entities on the basis of gender , country & dates
         [HttpGet("filter")]
         public IActionResult FilterEntities([FromQuery] string gender, [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] string country)
         {
@@ -52,6 +73,9 @@ namespace AssignmentForKYC360.Controllers
        );
             return Ok(filteredEntities);
         }
+
+
+
 
     }
 }
