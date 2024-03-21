@@ -51,14 +51,14 @@ namespace AssignmentForKYC360.Controllers
             searchTerm = searchTerm.ToLower();
             var filteredEntities = _db.GetAllEntities()
                 .Where(e =>
-                    e.Names.Any(n => n.FirstName.ToLower().Contains(searchTerm) || n.Surname.ToLower().Contains(searchTerm) || n.MiddleName.ToLower().Contains(searchTerm)) ||
-                    e.Addresses.Any(a => a.AddressLine.ToLower().Contains(searchTerm) || a.Country.ToLower().Contains(searchTerm))
+                    e.Names.Any(n => (n.FirstName != null && n.FirstName.Contains(searchTerm)) ||(n.Surname != null && n.Surname.Contains(searchTerm) )|| (n.MiddleName != null && n.MiddleName.Contains(searchTerm))) ||
+                    e.Addresses.Any(a => (a.AddressLine != null &&a.AddressLine.Contains(searchTerm) )|| (a.Country != null && a.Country.Contains(searchTerm)))
                 );
             return Ok(filteredEntities);
         }
 
 
-        //Endpoint TO filter  Entities on the basis of gender , country & dates
+        //Endpoint TO filter  Entities on the basis of gender , country dates
         [HttpGet("filter")]
         public IActionResult FilterEntities([FromQuery] string gender, [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] string country)
         {
