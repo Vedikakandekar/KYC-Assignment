@@ -91,12 +91,14 @@ There are following endpoints To work with Entities :
 
 
 4.Endpoint TO search  Entities by address or Name
- This is get request.
-     Sample URL : https://localhost:44339/kyc/entities/getAll
+     Sample URL : https://localhost:44339/kyc/entities/search?searchTerm=value
      method     : Get
      Body       : None
 
 5.Endpoint TO filter  Entities on the basis of gender , country & dates
-
+     Sample URL : https://localhost:44339/kyc/entities/filter?country=value&gender=value2
+     method     : Get
+     Body       : None
+     country and gender can't be null.
 
 
